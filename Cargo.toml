@@ -1,0 +1,107 @@
+[package]
+name = "yorc"
+version = "0.1.0"
+edition = "2024"
+# quick-xml 0.42 needs 1.86; this crate uses u*::is_multiple_of (1.87).
+rust-version = "1.87"
+description = "Cultivate your research identity and networks: the ORCID message schema v3.0 for Rust (iDs, typed model, XML and JSON read/write, Public Data File streaming, blocking Public API reads)"
+homepage = "https://github.com/mgbilby/yorc-rs"
+license = "MIT"
+repository = "https://github.com/mgbilby/yorc-rs"
+documentation = "https://docs.rs/yorc"
+readme = "README.md"
+keywords = ["orcid", "xml", "json", "research", "scholarly"]
+categories = ["parser-implementations", "science", "api-bindings", "encoding"]
+publish = true
+# The package holds the library, its examples and its documentation. The
+# tests read ORCID's schemas and samples (reference/) and a 1.3 MB record
+# (tests/data/), which stay in the repository.
+include = [
+    "/src/**/*.rs",
+    "/examples/**",
+    "/Cargo.toml",
+    "/README.md",
+    "/CHANGELOG.md",
+    "/ARCHITECTURE.md",
+    "/COMPARISON.md",
+    "/WALKTHROUGH.md",
+    "/LICENSE",
+    "/NOTICE",
+]
+
+[features]
+default = ["id", "model", "xml"]
+# OrcidId + MOD 11-2 normalisation (same rules as yorc-duckdb's orcid_normalize).
+id = []
+# Typed structs for every data-bearing element of the v3.0 record XSDs.
+model = []
+# ORCID XML <-> model (quick-xml).
+xml = ["model", "dep:quick-xml"]
+# SHA-256 hex `source_hash`.
+hash = ["dep:sha2"]
+# Model -> yorc-duckdb section rows (`id`: the iD named in an error message).
+rows = ["id", "xml", "hash"]
+# Public Data File (.tar.gz) streaming + the seeded reservoir sampler.
+dump = ["dep:flate2", "dep:tar"]
+# ORCID JSON form (read/write) over the model.
+json = ["model", "dep:serde_json"]
+# ORCID Public API client over ureq (no async runtime): pub.orcid.org reads and
+# search, anonymous or with an optional 2-legged /read-public token; one request
+# per 45 s to ORCID's hosts. No Member API, no Sandbox, no writes.
+blocking = ["id", "xml", "dep:ureq", "dep:serde_json"]
+# Everything above.
+full = ["id", "model", "xml", "hash", "rows", "dump", "json", "blocking"]
+
+[dependencies]
+quick-xml = { version = "0.42.0", optional = true }
+sha2 = { version = "0.10.9", optional = true }
+flate2 = { version = "1.1.10", optional = true }
+tar = { version = "0.4.46", default-features = false, optional = true }
+serde_json = { version = "1.0.154", optional = true }
+ureq = { version = "3.4.2", optional = true }
+
+[package.metadata.docs.rs]
+all-features = true
+# shows each feature-gated item's feature (lib.rs: cfg_attr(docsrs, feature(doc_cfg)))
+rustdoc-args = ["--cfg", "docsrs"]
+
+# Examples (cargo run --example NAME --features ...); see README.md.
+[[example]]
+name = "orcid_id"
+required-features = ["id"]
+
+[[example]]
+name = "read_record"
+required-features = ["xml"]
+
+[[example]]
+name = "json_convert"
+required-features = ["xml", "json"]
+
+[[example]]
+name = "section_rows"
+required-features = ["rows"]
+
+[[example]]
+name = "dump_count"
+required-features = ["dump", "xml"]
+
+[[example]]
+name = "dump_sample"
+required-features = ["dump"]
+
+[[example]]
+name = "fetch_record"
+required-features = ["blocking"]
+
+[[example]]
+name = "search"
+required-features = ["blocking"]
+
+# Every module in eleven cells; WALKTHROUGH.md, pinned by tests/walkthrough.rs.
+[[example]]
+name = "walkthrough"
+required-features = ["full"]
+
+# Not a member of any enclosing workspace: builds on its own.
+[workspace]

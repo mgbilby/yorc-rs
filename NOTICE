@@ -1,0 +1,58 @@
+yorc-rs
+Copyright © 2026 Mark G. Bilby. Licensed under the MIT License
+(see LICENSE). https://github.com/mgbilby/yorc-rs
+
+Specifications
+--------------
+The model, readers, writers and checks are written from public specifications:
+  - ORCID Message Schema v3.0 (https://github.com/ORCID/orcid-model)
+  - ORCID iD structure and check digit, ISO/IEC 7064:2003 MOD 11-2
+    (https://support.orcid.org/hc/en-us/articles/360006897674)
+  - ORCID API documentation for the Public API and OAuth
+    (https://info.orcid.org/documentation/)
+  - XML 1.0 (Fifth Edition), W3C Recommendation
+No code was copied from other ORCID software (COMPARISON.md, "Shared code").
+
+Third-party material in this repository
+---------------------------------------
+None of it is in the published crate (Cargo.toml `include`); it is used by
+the tests only.
+
+reference/orcid-model/
+  The ORCID message schema v3.0 (XSDs, README and samples for record_3.0 and
+  group-id-3.0, and common_3.0), copied unmodified from https://github.com/ORCID/orcid-model at
+  commit 9592e2d3bde21a1edf703f26f8bc304448f886fb.
+  Copyright © 2012-2018 ORCID, Inc. ORCID MIT-style license:
+  reference/orcid-model/LICENSE. Provenance: reference/orcid-model/PROVENANCE.md.
+
+Test data
+---------
+tests/data/0000-0003-0100-6634.xml is the public ORCID record of
+0000-0003-0100-6634 as returned by https://pub.orcid.org/v3.0/. ORCID makes
+public record data available under CC0 1.0
+(https://info.orcid.org/documentation/integration-guide/orcid-public-data-file/).
+
+tests/data/0000-0002-2771-9344.xml is the public ORCID record of
+0000-0002-2771-9344 (a fictitious person's record that ORCID uses as an
+example), as returned by https://pub.orcid.org/v3.0/0000-0002-2771-9344/record,
+unmodified; CC0 1.0 like the record above. The walkthrough and the examples'
+usage lines read it.
+
+tests/data/changes/old.xml is the ORCID sample record
+reference/orcid-model/record_3.0/samples/read_samples/record-3.0.xml (fictitious
+iD 8888-8888-8888-8880); new.xml is an edited copy of it. Both are copied from
+yorc-duckdb's test/data/changes, where they were made for its orcid_changes
+tests. tests/data/group-id-records.xml is the group-id-records page of
+yorc-duckdb's test/sql/orcid_api_messages.test, written for these tests.
+
+tests/data/dump/orcid_test_summaries.tar.gz is a small archive in the layout
+of the ORCID Public Data File, copied from yorc-duckdb
+(test/data/dump/orcid_test_summaries.tar.gz, byte for byte): the record above,
+the ORCID sample records record-3.0.xml and works-3.0.xml (the latter under a
+path longer than 100 characters) and a README.txt member. Its contents are
+covered by the notices above.
+
+Trademarks
+----------
+ORCID is a trademark of ORCID, Inc. This crate is not affiliated with or
+endorsed by ORCID, Inc.

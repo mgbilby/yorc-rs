@@ -1,0 +1,4 @@
+/target/
+
+# Test fixtures (a parent .gitignore may ignore *.gz)
+!/tests/data/dump/*.tar.gz

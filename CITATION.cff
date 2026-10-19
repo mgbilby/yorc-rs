@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use yorc-rs, please cite it as below."
+title: "yorc-rs: the ORCID message schema v3.0 for Rust"
+type: software
+authors:
+  - family-names: Bilby
+    given-names: Mark G.
+    orcid: "https://orcid.org/0000-0003-0100-6634"
+license: MIT
+repository-code: "https://github.com/mgbilby/yorc-rs"
+url: "https://crates.io/crates/yorc"
+keywords:
+  - orcid
+  - research identity
+  - scholarly communication
+version: 0.1.0
