@@ -5,6 +5,7 @@
 [![docs.rs](https://img.shields.io/docsrs/yorc)](https://docs.rs/yorc)
 [![CI](https://github.com/mgbilby/yorc-rs/actions/workflows/ci.yml/badge.svg)](https://github.com/mgbilby/yorc-rs/actions/workflows/ci.yml)
 [![Rust 1.87+](https://img.shields.io/badge/rust-1.87%2B-orange.svg)](#minimum-supported-rust-version)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23427034.svg)](https://doi.org/10.5281/zenodo.23570275)
 
 The [ORCID](https://orcid.org/) message schema v3.0 for Rust: a typed model of
 the whole record schema, ORCID XML and JSON read and write, iD checks, the
